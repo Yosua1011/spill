@@ -1,17 +1,17 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser');
-// var session = require('express-session')
+var session = require('express-session')
 
 
 app.set('view engine', 'ejs')
 
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json());
-// app.use(session({
-//     secret: 'kitfox-2017',
-//     cookie: {}
-// }))
+app.use(session({
+    secret: 'kitfox-2017',
+    cookie: {}
+}))
 app.use(express.static(__dirname + '/public'));
 // app.use(express.static('public'))
 
