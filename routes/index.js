@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var models = require('../models')
+require('dotenv').config()
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -9,6 +10,7 @@ router.get('/', function(req, res, next) {
   // } else {
   //   res.redirect('/login')
   // }
+  console.log(process.env.SENDGRID_API_KEY)
   res.render('counter', {title: 'Counter Page'})
 });
 
