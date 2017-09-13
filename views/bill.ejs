@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <%- include ../partial/head %>
+  <body>
+    <h2>Bill Details</h2>
+    <table border="1">
+      <tr>
+        <th>No.</th>
+        <th>Payee</th>
+        <th>Total Paid</th>
+        <th>Actions</th>
+        <th>Status</th>
+      </tr>
+      <% data_payee.forEach((row, index) => { %>
+      <tr>
+        <td><%=index+1%></td>
+        <td><%=row.payee%></td>
+        <td><%=row.paid%></td>
+        <td>
+          <% if (row.email_status!==null) {%>
+            <%=row.email_status%>
+          <%} else {%>
+            not send
+          <%}%>
+      </td>
+      </tr>
+      <% }) %>
+    </table>
+  </body>
+</html>
+Add Comment C

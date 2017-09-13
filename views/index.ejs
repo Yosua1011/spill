@@ -2,34 +2,32 @@
 <html>
     <%- include partial/head %>
     <link href="/stylesheets/dropdown.css" rel="stylesheet" type="text/css">
-    <script   src="/javascripts/dropdown.js"></script>
+    <script src="/javascripts/dropdown.js"></script>
   <body>
-    <form class="" action="/order/add" method="POST">
-      <p> Order
-          <br>
-        <input type="text" name="order" value="" placeholder="First Name">
-      </p>
-      <p> Price
-          <br>
-        <input type="number" name="price" value="" placeholder="Last Name">
-      </p>
-      <p> Payee
-          <br>
-          <div class="multiselect">
-            <div class="selectBox" onclick="showCheckboxes()">
-              <button> pilih </button>
-              <div class="overSelect"></div>
-            </div>
-            <div id="checkboxes">
-              <label for="one">
-                <input type="checkbox" name="person1" value="person1" id="one" />First checkbox</label>
-              <label for="two">
-                <input type="checkbox" name="person1" value="person2" id="one" />Second checkbox</label>
-              <label for="three">
-                <input type="checkbox" name="person1" value="person3" id="one" />Third checkbox</label>
-            </div>
+    <div>
+      <form class="" action="/order/add/<%=amount%>" method="POST">
+      <%for(var i = 0; i < amount; i++) {%>
+        <table>
+        <tr>Order</tr>
+        <tr><input type="text" name="order" value="" placeholder="First Name"></tr>
+        <tr>Price</tr>
+        <tr><input type="number" name="price" value="" placeholder="Last Name"></tr>
+        <tr>Payee</tr>
+            <tr>
+            <select name=<%=i%> multiple>
+              <option value="satu">Satu</option>
+              <option value="dua">Dua</option>
+              <option value="tiga">Tiga</option>
+              <option value="empat">Empat</option>
+              <option value="lima">lima</option>
+              <option value="enam">enam</option>
+              <option value="tujuh">tujuh</option>
+              <option value="delapan">delapan</option>
+            </select>
+          </tr>
           </div>
-      </p>
+        <%}%>
+      </table>
         <input type="submit" value="Save">
       </form>
       <a href="/addPayee">Add a new payee</a>

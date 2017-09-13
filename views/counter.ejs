@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include partial/head %>
+<body>
+    <form class="" action="/" method="POST">
+        <label for="sel1">Payee Total:</label>
+        <select name ="amount" class="form-control" id="sel1">
+            <% for (i=0; i<50; i++) { %>
+                <option value="<%=i+1%>"><%=i+1%></option>
+            <% } %> 
+        </select>
+      <!-- <input type="submit" value="Submit Total Payee Count">
+      <select name="halo" multiple method="POST">
+            <option value="satu">Satu</option>
+            <option value="dua">Dua</option>
+            <option value="tiga">Tiga</option>
+            <option value="empat">Empat</option>
+          </select> -->
+          <input type="submit" value="Submit Total Payee Count">
+    </form>
+</body>
+</html>

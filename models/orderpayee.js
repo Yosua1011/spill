@@ -2,7 +2,8 @@
 module.exports = function(sequelize, DataTypes) {
   var OrderPayee = sequelize.define('OrderPayee', {
     OrderId: DataTypes.INTEGER,
-    PayeeId: DataTypes.INTEGER
+    PayeeId: DataTypes.INTEGER,
+    Total: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {
