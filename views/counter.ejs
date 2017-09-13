@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include partial/head %>
+<body>
+    <form class="" action="#" method="POST">
+    <div class="form-group">
+        <label for="sel1">Payee Total:</label>
+        <select class="form-control" id="sel1">
+            <% for (i=0; i<50; i++) { %>
+                <option><%=i+1%></option>
+            <% } %> 
+        </select>
+      </div>
+      <input type="submit" value="Submit Total Payee Count">
+    </form>
+</body>
+</html>

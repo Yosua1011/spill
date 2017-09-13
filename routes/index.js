@@ -4,11 +4,12 @@ var models = require('../models')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  if (req.session.hasLogin) {
-    res.render('index', {title: "Split Bill", session: req.session})
-  } else {
-    res.redirect('/login')
-  }
+  // if (req.session.hasLogin) {
+  //   res.render('index', {title: "Split Bill", session: req.session})
+  // } else {
+  //   res.redirect('/login')
+  // }
+  res.render('counter', {title: 'Counter Page'})
 });
 
 //Login
