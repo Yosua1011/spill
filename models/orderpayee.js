@@ -10,9 +10,9 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-  // OrderPayee.associate = (models) => {
-  //   OrderPayee.belongsTo(models.Order)
-  //   OrderPayee.belongsTo(models.Payee)
-  // }
+  OrderPayee.associate = (models) => {
+    OrderPayee.belongsTo(models.Order)
+    OrderPayee.belongsTo(models.Payee)
+  }
   return OrderPayee;
 };
