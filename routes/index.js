@@ -4,13 +4,17 @@ var models = require('../models')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  if (req.session.hasLogin) {
-    res.render('index', {title: "Split Bill", session: req.session})
-  } else {
-    res.redirect('/login')
-  }
+  // if (req.session.hasLogin) {
+  //   res.render('index', {title: "Split Bill", session: req.session})
+  // } else {
+  //   res.redirect('/login')
+  // }
+  res.render('index', {title: 'sdad'})
 });
 
+router.post('/order/add', function(req,res) {
+  res.send(req.body)
+})
 
 //Login
 
@@ -44,7 +48,6 @@ router.get('/logout', (req, res) => {
 })
 module.exports = router;
 
-
 //Register
 router.get('/register', (req, res) => {
   res.render('register', {title: 'Register', error_reg: false, session: req.session})
@@ -67,18 +70,4 @@ router.post('/addnewuser', (req, res) => {
   })
 })
 
-router.post('/registeruser', (req,res) => {
-  models.User.create({
-    email: `${req.body.email}`,
-    password: `${req.body.password}`,
-    createdAt: new Date(),
-    updatedAt: new Date()
-  })
-  .then(user => {
-    res.send(user)
-  })
-  .catch(err => {
-    console.log(err);
-  })
-})
 module.exports = router;
