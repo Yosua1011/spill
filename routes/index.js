@@ -50,22 +50,6 @@ router.get('/register', (req, res) => {
   res.render('register', {title: 'Register', error_reg: false, session: req.session})
 })
 
-router.post('/addnewuser', (req, res) => {
-  models.User.create({
-      username: `${req.body.username}`,
-      password: `${req.body.password}`,
-      role: `${req.body.role}`,
-      createdAt: new Date(),
-      udpatedAt: new Date()
-  })
-  .then(user => {
-      res.render('registerSuccess', {title: 'Register Success', session: req.session})
-  })
-  .catch(err => {
-      console.log(err)
-      res.render('register', {title: 'Register', error_reg: true, session: req.session})
-  })
-})
 
 router.post('/registeruser', (req,res) => {
   models.User.create({
