@@ -4,12 +4,11 @@ var models = require('../models')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  // if (req.session.hasLogin) {
-  //   res.render('index', {title: "Split Bill", session: req.session})
-  // } else {
-  //   res.redirect('/login')
-  // }
-  res.render('index', {title: 'sdad'})
+  if (req.session.hasLogin) {
+    res.render('index', {title: "Split Bill", session: req.session})
+  } else {
+    res.redirect('/login')
+  }
 });
 
 router.post('/order/add', function(req,res) {
@@ -25,12 +24,12 @@ router.get('/login', (req, res) => {
 router.post('/login', (req, res) => {
   models.User.findAll({
     where: {
-      username: `${req.body.username}`
+      email: `${req.body.email}`
     }
   })
     .then( users => {
       users.forEach(user => {
-        if(req.body.username === user.username && req.body.password === user.password) {
+        if(req.body.email === user.email && req.body.password === user.password) {
           req.session.hasLogin = true
           res.redirect('/')
           }

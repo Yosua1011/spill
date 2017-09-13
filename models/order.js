@@ -10,8 +10,8 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-  // Order.associate = (models) => {
-  //   Order.belongsToMany(models.Payee, {through: 'OrderPayee'})
-  // };
+  Order.associate = (models) => {
+    Order.belongsToMany(models.Payee, {through: 'OrderPayee'})
+  };
   return Order;
 };
