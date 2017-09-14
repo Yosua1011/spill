@@ -16,11 +16,6 @@
     "nodemailer": "^4.1.0",
     "pg": "^7.3.0",
     "sequelize": "^4.8.3",
-<<<<<<< HEAD
-    "sequelize-cli": "^3.0.0-2",
-=======
-    "sequelize-cli": "^4.8.0",
->>>>>>> b49e43d16c34a53ab77d3f74546d48133c6d0696
     "serve-favicon": "~2.4.2"
   },
   "description": "this a repo for spill of our idea",
