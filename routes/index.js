@@ -112,6 +112,13 @@ router.get('/delete/:id', (req,res) => {
     }
   })
   .then(() => {
+    models.OrderPayee.destroy({
+      where: {
+        OrderId: `${req.params.id}`
+      }
+    })
+  })
+  .then(() => {
     res.redirect('/')
   })
 })
@@ -201,18 +208,6 @@ router.get('/billRundown', (req,res) => {
   })
   .then((orderPayees) => {
     res.render('billOrder', {data: orderPayees, title: 'Bill'});
-  })
-})
-
-//Delete Bill Rundown
-router.get('/deleteorder/:id', (req,res) => {
-  models.OrderPayee.destroy({
-    where: {
-      id: `${req.params.id}`
-    }
-  })
-  .then(() => {
-    res.redirect('/billOrder')
   })
 })
 
