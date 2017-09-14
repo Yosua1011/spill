@@ -4,9 +4,10 @@
     <link href="/stylesheets/dropdown.css" rel="stylesheet" type="text/css">
     <script src="/javascripts/dropdown.js"></script>
   <body>
+    <a href="/addOrder">Add Order</a>
     <div>
-      <form class="" action="/order/add/<%=amount%>" method="POST">
-      <%for(var i = 0; i < amount; i++) {%>
+      <form class="" action="/order/add/" method="POST">
+      <%data_order.forEach(row => {%>
         <table>
         <tr>Order</tr>
         <tr><input type="text" name="order" value="" placeholder="First Name"></tr>
@@ -14,7 +15,7 @@
         <tr><input type="number" name="price" value="" placeholder="Last Name"></tr>
         <tr>Payee</tr>
             <tr>
-            <select name=<%=i%> multiple>
+            <select name="sesuatu" multiple>
               <option value="satu">Satu</option>
               <option value="dua">Dua</option>
               <option value="tiga">Tiga</option>
@@ -26,7 +27,7 @@
             </select>
           </tr>
           </div>
-        <%}%>
+        <%})%>
       </table>
         <input type="submit" value="Save">
       </form>

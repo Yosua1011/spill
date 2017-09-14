@@ -4,23 +4,72 @@ var models = require('../models');
 var calculator = require('../helpers/calculate')
 
 /* GET home page. */
-router.post('/', function(req, res, next) {
-  if (req.session.hasLogin) {
-    res.render('index', {title: "Split Bill", session: req.session, amount: req.body.amount})
-  } else {
-    res.redirect('/login')
-  }
-  // res.send(req.body)
-});
+// router.use((req,res,next) => {
+//   if(req.session.hasLogin) {
+//     next()
+//   } else {
+//     res.redirect('/login')
+//   }
+// })
 
-router.get('/counter', (req,res) => {
-  res.render('counter', {title: "Counter", session: req.session})
+router.get('/', (req, res)=>{
+  models.Order.findAll({
+    // include: [{models: models.Payee}]
+  })
+  // .then(order => {
+  //   if(order === []) {
+  //     // res.redirect('/addorder')
+  //     res.send(error)
+  //   }
+  // })
+    .then(order => {
+      if (req.session.hasLogin) {
+        res.render('index', {title: "Split Bill", session: req.session, data_order: order})
+        // res.redirect('/counter')
+        // res.send(order)
+      } else {
+        res.redirect('/login')
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    })
 })
 
-router.post('/order/add/:amount', function(req,res) {
-  let result = calculator(req.body,amount)
-  res.send(result)
+// router.get('/addOrder', (req,res,next) => {
+//   models.Order.findAll({
+
+//   })
+//   .then(
+//     res.redirect('/')
+//   )
+// })
+
+router.post('/addOrder', (req,res) => {
+  models.Order.create({
+    order: `order`,
+    price: `price`,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  })
 })
+
+// router.get('/counter', (req,res) => {
+//   res.render('counter', {title: "Counter", session: req.session})
+// })
+
+// router.post('/counterinput', (req,res) => {
+//   if (req.session.hasLogin) {
+//     res.render('index', {title: "Split Bill", session: req.session, amount: req.body.amount})
+//   } else {
+//     res.redirect('/login')
+//   }
+// })
+
+// router.post('/order/add/:amount', function(req,res) {
+//   // let result = calculator(req.body,amount)
+//   res.send(req.body)
+// })
 
 //Login
 
@@ -38,7 +87,7 @@ router.post('/login', (req, res) => {
       users.forEach(user => {
         if(req.body.email === user.email && req.body.password === user.password) {
           req.session.hasLogin = true
-          res.redirect('/counter')
+          res.redirect('/')
           }
         })
       })

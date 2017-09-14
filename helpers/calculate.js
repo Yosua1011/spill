@@ -1,4 +1,4 @@
-function calculate(data,amount) {
+function calculate(data) {
     let hasil = data[0]
     let payees = amount
     return payees
