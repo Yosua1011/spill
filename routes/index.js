@@ -10,7 +10,7 @@ router.get('/', (req, res)=>{
     include: [{model: models.Payee}]
   })
     .then(order => {
-      if (req.session.hasLogin) {
+      if (req.session.hasLogin !== false) {
         res.render('index', {title: "Split Bill", session: req.session, data_order: order})
         // res.send(order[0].Payees[0].name)
         // res.send(order)
@@ -25,13 +25,20 @@ router.get('/', (req, res)=>{
 
 //Bill Rundown
 router.get('/billRundown', (req,res) => {
-  models.Order.findAll({
-    include: [{model: models.Payee}]
+  models.OrderPayee.findAll({
+    attributes: [[models.OrderPayee.sequelize.fn('SUM',  models.OrderPayee.sequelize.col('Total')), 'totalPayment'], 'PayeeId'],
+    group: ['PayeeId']
   })
-  .then(order => {
-    let result = billProccess(order)
-    res.send(result)
+  .then((orderPayees) => {
+    res.send(orderPayees);
   })
+  // models.Order.findAll({
+  //   include: [{model: models.Payee}]
+  // })
+  // .then(order => {
+  //   let result = billProccess(order)
+  //   res.send(result)
+  // })
 })
 //Add
 router.get('/add', (req,res) => {
