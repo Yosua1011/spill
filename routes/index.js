@@ -40,6 +40,7 @@ router.get('/billRundown', (req,res) => {
   //   res.send(result)
   // })
 })
+
 //Add
 router.get('/add', (req,res) => {
   res.render('pageOrder', {title: 'Halaman add Order'})
@@ -118,6 +119,7 @@ router.post('/addOrderPayee/:id', (req,res) => {
   models.OrderPayee.create({
     OrderId: `${req.params.id}`,
     PayeeId: `${req.body.PayeeId}`,
+    Total: `${req.body.Cost}`,
     createdAt: new Date(),
     updatedAt: new Date()
   })
@@ -167,7 +169,6 @@ router.get('/logout', (req, res) => {
   req.session.destroy()
   res.redirect('/')
 })
-module.exports = router;
 
 //Register
 router.get('/register', (req, res) => {
@@ -189,6 +190,8 @@ router.post('/registeruser', (req,res) => {
     })
   })
 
+
+  
 
 module.exports = router;
 
