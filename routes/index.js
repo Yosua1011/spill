@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var models = require('../models');
+var email = require('../helpers/email.js')
 var billProccess = require('../helpers/calculate')
 
 /* GET home page. */
@@ -24,13 +25,20 @@ router.get('/', (req, res)=>{
 
 //Bill Rundown
 router.get('/billRundown', (req,res) => {
-  models.Order.findAll({
-    include: [{model: models.Payee}]
+  models.OrderPayee.findAll({
+    attributes: [[models.OrderPayee.sequelize.fn('SUM',  models.OrderPayee.sequelize.col('Total')), 'totalPayment'], 'PayeeId'],
+    group: ['PayeeId']
   })
-  .then(order => {
-    let result = billProccess(order)
-    res.send(result)
+  .then((orderPayees) => {
+    res.send(orderPayees);
   })
+  // models.Order.findAll({
+  //   include: [{model: models.Payee}]
+  // })
+  // .then(order => {
+  //   let result = billProccess(order)
+  //   res.send(result)
+  // })
 })
 //Add
 router.get('/add', (req,res) => {
@@ -65,6 +73,12 @@ router.get('/delete/:id', (req,res) => {
   .then(() => {
     res.redirect('/')
   })
+})
+
+//Send email
+router.get('/sendMail', (req,res) => {
+  email()
+  res.redirect('/')
 })
 
 //AddnewPayee
@@ -129,15 +143,22 @@ router.post('/login', (req, res) => {
     }
   })
     .then( users => {
-      users.forEach(user => {
-        if(req.body.email === user.email && req.body.password === user.password) {
-          req.session.hasLogin = true
-          res.redirect('/')
-          }
+      if(users.length > 0) {
+        users.forEach(user => {
+          if(req.body.email === user.email && req.body.password === user.password) {
+            req.session.hasLogin = true
+            res.redirect('/')
+            } else {
+              res.render('login', {title: 'login', error_login: true})
+            }
         })
-      })
+      } else {
+        res.render('login', {title: 'login', error_login: true})
+      }
+    })
     .catch(err => {
       res.render('login', {title: 'login', error_login: true})
+      // console.log(err)
     })
 })
 
