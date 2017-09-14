@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var models = require('../models');
+var email = require('../helpers/email.js')
 var billProccess = require('../helpers/calculate')
 
 /* GET home page. */
@@ -9,7 +10,7 @@ router.get('/', (req, res)=>{
     include: [{model: models.Payee}]
   })
     .then(order => {
-      if (req.session.hasLogin !== false) {
+      if (req.session.hasLogin) {
         res.render('index', {title: "Split Bill", session: req.session, data_order: order})
         // res.send(order[0].Payees[0].name)
         // res.send(order)
@@ -65,6 +66,12 @@ router.get('/delete/:id', (req,res) => {
   .then(() => {
     res.redirect('/')
   })
+})
+
+//Send email
+router.get('/sendMail', (req,res) => {
+  email()
+  res.redirect('/')
 })
 
 //AddnewPayee
@@ -130,15 +137,22 @@ router.post('/login', (req, res) => {
     }
   })
     .then( users => {
-      users.forEach(user => {
-        if(req.body.email === user.email && req.body.password === user.password) {
-          req.session.hasLogin = true
-          res.redirect('/')
-          }
+      if(users.length > 0) {
+        users.forEach(user => {
+          if(req.body.email === user.email && req.body.password === user.password) {
+            req.session.hasLogin = true
+            res.redirect('/')
+            } else {
+              res.render('login', {title: 'login', error_login: true})
+            }
         })
-      })
+      } else {
+        res.render('login', {title: 'login', error_login: true})
+      }
+    })
     .catch(err => {
       res.render('login', {title: 'login', error_login: true})
+      // console.log(err)
     })
 })
 
