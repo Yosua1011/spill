@@ -4,22 +4,22 @@
   <body>
     <br>
     <a href="/" style="margin-left: 20px">Back To Home</a><br><br>
-    <a href="/add" style="margin-left: 20px">Add Order</a><br><br>
+    <a href="/add" style="margin-left: 20px">Add Bill</a><br><br>
     <div style="margin-left: 20px">
       <table>
         <%data.forEach(row => {%>
         <form action="/<%=row.dataValues.totalPayment%>/sendMail/<%=row.dataValues.PayeeId%>">
-        <tr>Cost   </tr>
+        <tr>Total Cost: Rp   </tr>
         <tr> <%=row.dataValues.totalPayment%> </tr>
-        <select name="payAmount">
+        <select name="payAmount" style="visibility: hidden">
             <option value="<%=row.dataValues.totalPayment%>">satu</option>
         </select>
-        <tr>    Payee</tr>
+        <tr>    Payee: </tr>
         <tr> <%=row.PayeeId%> </tr>
-        <select name="payeeId">
+        <select name="payeeId" style="visibility: hidden">
             <option value="<%=row.dataValues.PayeeId%>">satu</option>
         </select>
-        <tr><input type="submit" value="Submit" style="margin-left: 20px"></tr><br><br>
+        <tr><input type="submit" value="Submit"></tr><br><br>
         </form>
         <%})%>
       </table>

@@ -66,6 +66,7 @@ router.get('/billRundown', (req,res) => {
     group: ['PayeeId']
   })
   .then((orderPayees) => {
+    // res.send(orderPayees)
     res.render('billOrder', {data: orderPayees, title: 'Bill'});
   })
 })

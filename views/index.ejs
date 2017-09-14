@@ -4,29 +4,38 @@
     <link href="/stylesheets/dropdown.css" rel="stylesheet" type="text/css">
     <script src="/javascripts/dropdown.js"></script>
   <body>
-    <a href="/add">Add Order</a>
+    <br>
     <div>
-      <%data_order.forEach(row => {%>
-        <table>
-        <tr>Order</tr>
-        <tr> <%=row.order%> </tr>
-        <tr>Price</tr>
-        <tr> <%=row.price%> </tr>
-        <tr>Payee</tr>
+      
+        <table border="1">
+        <tr>
+          <th>Order</th>
+          <th>Price</th>
+          <th>Payee</th>
+          <th>Options</th>
+        </tr>
+        <%data_order.forEach(row => {%>
+        <tr>
+        <td> <%=row.order%> </td>
+        <td> <%=row.price%> </td>
+        <td>
         <%for(var i = 0; i < row.Payees.length; i++) {%>
-          <tr> <%=row.Payees[i].name%></tr>
+           Payee <%=i+1%>: <%=row.Payees[i].name%><br>
         <%}%>
-        <tr><a href="/<%=row.id%>/addPayee"> Add Payee</a></tr>
-        <tr><a href="editOrder/<%=row.id%>">Edit Order<a></tr>
-        <tr><a href="/delete/<%=row.id%>"> Delete Order </a></tr>
-          </div>
+      </td>
+        <td>
+        <a href="/<%=row.id%>/addPayee"> Add Payee</a> |
+        <a href="editOrder/<%=row.id%>">Edit Order<a> |
+        <a href="/delete/<%=row.id%>"> Delete Order </a>
+        </td>
+        </tr>
         <%})%>
-      </table>
-        <a href="/billRundown">Spill</a><br><br>
-      <a href="/newPayee">Add a new payee</a><br><br>
-      <a href="/payeeList">Show Payee Data</a><br><br>
-      <button><a href="/sendMail">Send Email</a></button><br><br>
+        </table><br>
+        
+      <button><a href="/add">Add Order</a></button><br><br>
+      <button><a href="/newPayee">Add a new payee</a></button><br><br>
+      <button><a href="/payeeList">Show Payee Data</a></button><br><br>
+      <button><a href="/billRundown">Spill</a></button><br><br>
       <button><a href="/logout">Log Out</a></button><br><br>
-      <a href="/billRundown">Spill</a>
   </body>
 </html>
