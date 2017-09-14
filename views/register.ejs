@@ -6,11 +6,17 @@
     <body>
       <div class="col-md-10 col-md-offset-1">
         <div class="wrapper">
+          <%if (data_error === true) { %>
+            <font color="red">VALIDATION ERROR, EMAIL FORMAT IS INCORRECT. IT BELONGS TO SOMEONE ELSE</font>
+          <% } %>
+          <br><br>
          <form class="form-signin" action="/registeruser" method="post">
           <h2>Registration Form</h2><br>
            <input type="email" class="form-control" name="email" placeholder="Email"/><br>
            <input type="password" class="form-control" name="password" placeholder="Password"/><br>
            <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button><br>
+           <br><br>
+           <button class="btn btn-lg btn-primary btn-block" type="submit"><a href="/login">Back To Login</a></button><br>
          </form>
         </div>
       </div>

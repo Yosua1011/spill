@@ -9,7 +9,23 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        validate: {
+          isEmail: true,
+          isUnique: function(value, next) {
+            Student.find({
+              where: {email: value},
+              attributes: ['id']
+            })
+              .done(function(error,user) {
+                if (error) 
+                  return next(error)
+                if (user) 
+                  return next('Email address already in use!')
+                next()
+              })
+          }
+        }
       },
       password: {
         type: Sequelize.STRING

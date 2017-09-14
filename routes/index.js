@@ -10,7 +10,7 @@ router.get('/', (req, res)=>{
     include: [{model: models.Payee}]
   })
     .then(order => {
-      if (req.session.hasLogin !== false) {
+      if (req.session.hasLogin) {
         res.render('index', {title: "Split Bill", session: req.session, data_order: order})
         // res.send(order[0].Payees[0].name)
         // res.send(order)
@@ -172,7 +172,7 @@ router.get('/logout', (req, res) => {
 
 //Register
 router.get('/register', (req, res) => {
-  res.render('register', {title: 'Register', error_reg: false, session: req.session})
+  res.render('register', {title: 'Register', data_error: false, title:'Add New User', session: req.session})
 })
 
 router.post('/registeruser', (req,res) => {
@@ -183,10 +183,16 @@ router.post('/registeruser', (req,res) => {
       updatedAt: new Date()
     })
     .then(user => {
-      res.send(user)
+      res.redirect('/login')
     })
     .catch(err => {
-      console.log(err);
+      let data_temporary = {
+        email: `${req.body.email}`,
+        password: `${req.body.password}`,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+      res.render('register', {data: data_temporary, data_error: true, title:'Add New User', session: req.session})
     })
   })
 
