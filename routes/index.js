@@ -134,10 +134,10 @@ router.get('/:amount/sendMail/:id', (req,res) => {
     }
   })
   .then(payee => {
-    // email()
-    // res.send(`${req.params.amount}`)
-    res.send(payee[0].name + `${req.params.amount}`)
-    // res.send(req.body)
+    email(payee[0].email,`${req.params.amount}`)
+  })
+  .catch(err => {
+    console.log(err)
   })
   // email()
   // res.redirect('/')

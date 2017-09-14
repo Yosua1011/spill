@@ -1,6 +1,6 @@
 var nodemailer = require("nodemailer");
 
-function sendMail() {
+function sendMail(resipient, value) {
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -11,7 +11,7 @@ function sendMail() {
         
         var mailOptions = {
           from: `spillproject14@gmail.com`,
-          to: `yosua1011@outlook.com`,
+          to: resipient,
           subject: `Spill Reminder`,
           html: `
           <html>
@@ -103,7 +103,7 @@ function sendMail() {
                                               <div class="editable-text">
                                                   <span class="text_container">
                                                       <multiline>Hello Payee here is Your Total Bill </multiline><br><br>
-                                                      <multiline>Rp 10000 </multiline><br><br>
+                                                      <multiline>${value}</multiline><br><br>
                                                       <multiline>Please sent the money to your friend's bank account</multiline><br><br>
                                                   </span>
                                               </div>
