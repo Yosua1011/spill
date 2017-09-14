@@ -25,8 +25,6 @@ router.get('/', (req, res)=>{
     .then(order => {
       if (req.session.hasLogin) {
         res.render('index', {title: "Split Bill", session: req.session, data_order: order})
-        // res.redirect('/counter')
-        // res.send(order)
       } else {
         res.redirect('/login')
       }
@@ -35,41 +33,91 @@ router.get('/', (req, res)=>{
       console.log(err);
     })
 })
-
-// router.get('/addOrder', (req,res,next) => {
-//   models.Order.findAll({
-
-//   })
-//   .then(
-//     res.redirect('/')
-//   )
-// })
+//Add
+router.get('/add', (req,res) => {
+  res.render('pageOrder', {title: 'Halaman add Order'})
+})
 
 router.post('/addOrder', (req,res) => {
   models.Order.create({
-    order: `order`,
-    price: `price`,
+    order: `${req.body.menu}`,
+    price: `${req.body.price}`,
     createdAt: new Date(),
     updatedAt: new Date()
   })
+  .then( order => {
+    res.redirect('/')
+    // res.send(order)
+  })
 })
 
-// router.get('/counter', (req,res) => {
-//   res.render('counter', {title: "Counter", session: req.session})
-// })
+//Edit
+router.get('/editOrder', (req,res) => {
+  res.render('editOrder', {title: 'Edit your Order'})
+})
 
-// router.post('/counterinput', (req,res) => {
-//   if (req.session.hasLogin) {
-//     res.render('index', {title: "Split Bill", session: req.session, amount: req.body.amount})
-//   } else {
-//     res.redirect('/login')
-//   }
-// })
+//Delete
+router.get('/delete/:id', (req,res) => {
+  models.Order.destroy({
+    where: {
+      id: `${req.params.id}`
+    }
+  })
+  .then(() => {
+    res.redirect('/')
+  })
+})
 
-// router.post('/order/add/:amount', function(req,res) {
-//   // let result = calculator(req.body,amount)
-//   res.send(req.body)
-// })
+//AddnewPayee
+
+router.get('/newPayee', (req,res) => {
+  res.render('newPayee', {title: 'Register new Payee'})
+})
+
+router.post('/registerPayee', (req,res) => {
+  models.Payee.create({
+    name: `${req.body.name}`,
+    email: `${req.body.email}`,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  })
+  .then(() => {
+    res.redirect('/')
+  })
+})
+
+//AddOrderPayee
+router.get('/:id/addPayee', (req,res) => {
+  models.Order.findAll({
+    where: {
+      id: `${req.params.id}`
+    }
+  })
+    .then(order => {
+      models.Payee.findAll()
+      .then(payees => {
+        res.render('addOrderPayee', {data_order: order, data_payee: payees, title: 'Add Payee to Order'})
+        // res.send(order)
+      })
+    })
+  
+})
+
+router.post('/addOrderPayee/:id', (req,res) => {
+  models.OrderPayee.create({
+    OrderId: `${req.params.id}`,
+    PayeeId: `${req.body.PayeeId}`,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  })
+  .then(order => {
+    res.send('bego')
+  })
+  .catch(err => {
+    res.send(err)
+  })
+})
+
 
 //Login
 
@@ -125,3 +173,20 @@ router.post('/registeruser', (req,res) => {
 
 
 module.exports = router;
+
+// router.get('/counter', (req,res) => {
+//   res.render('counter', {title: "Counter", session: req.session})
+// })
+
+// router.post('/counterinput', (req,res) => {
+//   if (req.session.hasLogin) {
+//     res.render('index', {title: "Split Bill", session: req.session, amount: req.body.amount})
+//   } else {
+//     res.redirect('/login')
+//   }
+// })
+
+// router.post('/order/add/:amount', function(req,res) {
+//   // let result = calculator(req.body,amount)
+//   res.send(req.body)
+// })

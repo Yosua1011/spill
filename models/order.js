@@ -2,7 +2,8 @@
 module.exports = function(sequelize, DataTypes) {
   var Order = sequelize.define('Order', {
     order: DataTypes.STRING,
-    price: DataTypes.INTEGER
+    price: DataTypes.INTEGER,
+    PayeeId: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {

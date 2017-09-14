@@ -2,7 +2,8 @@
 module.exports = function(sequelize, DataTypes) {
   var Payee = sequelize.define('Payee', {
     name: DataTypes.STRING,
-    email: DataTypes.STRING
+    email: DataTypes.STRING,
+    OrderId: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {
@@ -11,6 +12,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
   Payee.associate = (models) => {
+    Payee.hasMany(models.Order)
     Payee.belongsToMany(models.Order, {through: 'OrderPayee'})
   };
   return Payee;

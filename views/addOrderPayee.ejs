@@ -4,9 +4,7 @@
     <link href="/stylesheets/dropdown.css" rel="stylesheet" type="text/css">
     <script src="/javascripts/dropdown.js"></script>
   <body>
-    <a href="/add">Add Order</a>
     <div>
-      <form class="" action="/order/add/" method="POST">
       <%data_order.forEach(row => {%>
         <table>
         <tr>Order</tr>
@@ -15,13 +13,18 @@
         <tr> <%=row.price%> </tr>
         <tr>Payee</tr>
         <tr><%=row.PayeeId%></tr>
-        <tr><a href="/<%=row.id%>/addPayee"> Add Payee</a></tr>
         <tr><a href="/delete/<%=row.id%>"> Delete Order </a></tr>
+        <tr><a href="/<%=row.id%>/addPayee"
           </div>
         <%})%>
       </table>
-        <input type="submit" value="Save">
+      <form class="" action="/addOrderPayee/<%=data_order[0].id%>" method="post">
+        <select class="" name="PayeeId">
+          <% data_payee.forEach(row => { %>
+          <option value="<%=row.id%>"><%=row.name%></option>
+          <% }) %>
+        </select>
+        <button type="submit">Add Payee</button>
       </form>
-      <a href="/newPayee">Add a new payee</a>
   </body>
 </html>
