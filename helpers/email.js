@@ -103,7 +103,7 @@ function sendMail(resipient, value) {
                                               <div class="editable-text">
                                                   <span class="text_container">
                                                       <multiline>Hello Payee here is Your Total Bill </multiline><br><br>
-                                                      <multiline>${value}</multiline><br><br>
+                                                      <multiline>Rp ${value}</multiline><br><br>
                                                       <multiline>Please sent the money to your friend's bank account</multiline><br><br>
                                                   </span>
                                               </div>
