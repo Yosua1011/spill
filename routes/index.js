@@ -135,6 +135,7 @@ router.get('/:amount/sendMail/:id', (req,res) => {
   })
   .then(payee => {
     email(payee[0].email,`${req.params.amount}`)
+    res.send('Halo')
   })
   .catch(err => {
     console.log(err)
