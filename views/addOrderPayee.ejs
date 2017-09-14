@@ -19,7 +19,7 @@
         <%})%>
       </table>
       <form class="" action="/addOrderPayee/<%=data_order[0].id%>" method="post">
-        <select class="" name="PayeeId">
+        <select class="" name="PayeeId" multiple>
           <% data_payee.forEach(row => { %>
           <option value="<%=row.id%>"><%=row.name%></option>
           <% }) %>

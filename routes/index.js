@@ -98,7 +98,6 @@ router.get('/:id/addPayee', (req,res) => {
         // res.send(order)
       })
     })
-  
 })
 
 router.post('/addOrderPayee/:id', (req,res) => {
