@@ -17,6 +17,7 @@
           <tr> <%=row.Payees[i].name%></tr>
         <%}%>
         <tr><a href="/<%=row.id%>/addPayee"> Add Payee</a></tr>
+        <tr><a href="editOrder/<%=row.id%>">Edit Order<a></tr>
         <tr><a href="/delete/<%=row.id%>"> Delete Order </a></tr>
           </div>
         <%})%>

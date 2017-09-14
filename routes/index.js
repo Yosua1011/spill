@@ -30,15 +30,8 @@ router.get('/billRundown', (req,res) => {
     group: ['PayeeId']
   })
   .then((orderPayees) => {
-    res.send(orderPayees);
+    res.render('billOrder', {data: orderPayees, title: 'Bill'});
   })
-  // models.Order.findAll({
-  //   include: [{model: models.Payee}]
-  // })
-  // .then(order => {
-  //   let result = billProccess(order)
-  //   res.send(result)
-  // })
 })
 
 //Add
@@ -60,8 +53,29 @@ router.post('/addOrder', (req,res) => {
 })
 
 //Edit
-router.get('/editOrder', (req,res) => {
-  res.render('editOrder', {title: 'Edit your Order'})
+router.get('/editOrder/:id', (req,res) => {
+  models.Order.findAll({
+    where: {
+      id: `${req.params.id}`
+    }
+  })
+  .then(order => {
+    res.render('orderEdit', {data_order: order, title: "Edit Order"})
+  })
+})
+
+router.post('/edit/:id', (req,res) => {
+  models.Order.update({
+    order: `${req.body.menu}`,
+    price: `${req.body.price}`,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  }, {
+    where: {id: `${req.params.id}`}
+  })
+  .then(()=> {
+    res.redirect('/')
+  })
 })
 
 //Delete
@@ -77,9 +91,20 @@ router.get('/delete/:id', (req,res) => {
 })
 
 //Send email
-router.get('/sendMail', (req,res) => {
-  email()
-  res.redirect('/')
+router.get('/:amount/sendMail/:id', (req,res) => {
+  models.Payee.findAll({
+    where: {
+      id: `${req.params.id}`
+    }
+  })
+  .then(payee => {
+    // email()
+    // res.send(`${req.params.amount}`)
+    res.send(payee[0].name + `${req.params.amount}`)
+    // res.send(req.body)
+  })
+  // email()
+  // res.redirect('/')
 })
 
 //AddnewPayee

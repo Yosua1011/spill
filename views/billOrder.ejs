@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <%- include partial/head %>
+  <body>
+    <a href="/add">Add Order</a>
+    <div>
+    <table>
+      <%data.forEach(row => {%>
+        <form action="/<%=row.dataValues.totalPayment%>/sendMail/<%=row.dataValues.PayeeId%>">
+        <tr>Cost   </tr>
+        <tr> <%=row.dataValues.totalPayment%> </tr>
+        <select name="payAmount">
+            <option value="<%=row.dataValues.totalPayment%>">satu</option>
+        </select>
+        <tr>Payee</tr>
+        <tr> <%=row.PayeeId%> </tr><br>
+        <select name="payeeId">
+            <option value="<%=row.dataValues.PayeeId%>">satu</option>
+        </select>
+        <tr><input type="submit" value="Submit"></tr>
+        </form>
+        <%})%>
+      </table>
+  </body>
+</html>
