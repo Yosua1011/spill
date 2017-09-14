@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes) {
       validate: {
         isEmail: true,
         isUnique: function(value, next) {
-          Student.find({
+          User.find({
             where: {email: value},
             attributes: ['id']
           })
