@@ -13,7 +13,8 @@ module.exports = {
       },
       PayeeId: {
         type: Sequelize.INTEGER
-      },Total: {
+      },
+      Total: {
         type: Sequelize.INTEGER
       },
       createdAt: {

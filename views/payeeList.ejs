@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <%- include partial/head %>
+  <%- include partial/login %>
+  <body>
+    <body>
+      <div class="col-md-10 col-md-offset-1">
+        <div class="wrapper">
+          <br><br>
+            <%data_payee.forEach(row => { %>
+                <td><%=row.id%></td>
+                <td><%=row.name%></td>
+                <td><%=row.email%></td>
+                <td><a href="/editPayee/<%=row.id%>">Edit Payee's Data</a></td>
+            <% }) %>
+        </div>
+      </div>
+  </body>
+</html>

@@ -23,6 +23,42 @@ router.get('/', (req, res)=>{
     })
 })
 
+//Show Payee List
+router.get('/payeeList', (req, res)=>{
+  models.Payee.findAll()
+    .then(payee => {
+      if (req.session.hasLogin) {
+        // res.render('editpayee', {title: "Edit Payee", session: req.session, data_payee: payee})
+        res.render('payeeList', {data_payee: payee, title: "Edit Payee's Data"})
+      } else {
+        res.redirect('/')
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    })
+})
+
+//Edit Payee Data
+router.get('/editpayee/:id', (req, res)=>{
+  models.Payee.findAll({
+    where: {
+      id: `${req.params.id}`
+    }
+  })
+    .then(payee => {
+      if (req.session.hasLogin) {
+        res.render('editpayee', {title: "Edit Payee", session: req.session, data_payee: payee})
+        // res.send(payee)
+      } else {
+        res.redirect('/')
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    })
+})
+
 //Bill Rundown
 router.get('/billRundown', (req,res) => {
   models.OrderPayee.findAll({
