@@ -3,18 +3,17 @@
   <%- include partial/head %>
   <%- include partial/login %>
   <body>
-    <body>
       <div class="col-md-10 col-md-offset-1">
         <div class="wrapper">
           <br><br>
          <form class="form-signin" action="/editpayee" method="post">
           <h2>Payee's Data Edit Form</h2><br>
-           <input type="email" class="form-control" name="email" yplaceholder="<%=data_payee[0].name%>"/><br>
+           <input type="email" class="form-control" name="email" placeholder="<%=data_payee[0].name%>"/><br>
            <input type="password" class="form-control" name="password" placeholder="<%=data_payee[0].email%>"/><br>
            <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button><br>
+           <a href="/payeeList">Back To Payee List</a>
            <br><br>
          </form>
-         <button><a href="/">Back To Home</a></button><br>
         </div>
       </div>
   </body>

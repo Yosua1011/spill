@@ -59,17 +59,6 @@ router.get('/editpayee/:id', (req, res)=>{
     })
 })
 
-//Bill Rundown
-router.get('/billRundown', (req,res) => {
-  models.OrderPayee.findAll({
-    attributes: [[models.OrderPayee.sequelize.fn('SUM',  models.OrderPayee.sequelize.col('Total')), 'totalPayment'], 'PayeeId'],
-    group: ['PayeeId']
-  })
-  .then((orderPayees) => {
-    // res.send(orderPayees)
-    res.render('billOrder', {data: orderPayees, title: 'Bill'});
-  })
-})
 
 //Add
 router.get('/add', (req,res) => {
@@ -89,7 +78,7 @@ router.post('/addOrder', (req,res) => {
   })
 })
 
-//Edit
+//Edit Order
 router.get('/editOrder/:id', (req,res) => {
   models.Order.findAll({
     where: {
@@ -135,14 +124,12 @@ router.get('/:amount/sendMail/:id', (req,res) => {
     }
   })
   .then(payee => {
-    email(payee[0].email,`${req.params.amount}`)
-    res.send('Halo')
+    email(payee[0].name,payee[0].email,`${req.params.amount}`)
+    res.redirect('/billRundown')
   })
   .catch(err => {
     console.log(err)
   })
-  // email()
-  // res.redirect('/')
 })
 
 //AddnewPayee
@@ -158,7 +145,19 @@ router.post('/registerPayee', (req,res) => {
     updatedAt: new Date()
   })
   .then(() => {
-    res.redirect('/')
+    res.redirect('/payeeList')
+  })
+})
+
+//Delete Payee
+router.get('/deletePayee/:id', (req,res) => {
+  models.Payee.destroy({
+    where: {
+      id: `${req.params.id}`
+    }
+  })
+  .then(() => {
+    res.redirect('/payeeList')
   })
 })
 
@@ -194,6 +193,28 @@ router.post('/addOrderPayee/:id', (req,res) => {
   })
 })
 
+//Bill Rundown
+router.get('/billRundown', (req,res) => {
+  models.OrderPayee.findAll({
+    attributes: [[models.OrderPayee.sequelize.fn('SUM',  models.OrderPayee.sequelize.col('Total')), 'totalPayment'], 'PayeeId'],
+    group: ['PayeeId']
+  })
+  .then((orderPayees) => {
+    res.render('billOrder', {data: orderPayees, title: 'Bill'});
+  })
+})
+
+//Delete Bill Rundown
+router.get('/deleteorder/:id', (req,res) => {
+  models.OrderPayee.destroy({
+    where: {
+      id: `${req.params.id}`
+    }
+  })
+  .then(() => {
+    res.redirect('/billOrder')
+  })
+})
 
 //Login
 

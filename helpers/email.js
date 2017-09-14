@@ -1,6 +1,6 @@
 var nodemailer = require("nodemailer");
 
-function sendMail(resipient, value) {
+function sendMail(name,resipient, value) {
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -102,7 +102,7 @@ function sendMail(resipient, value) {
                                           <td mc:edit="text003" align="left" class="center_content text_color_282828" style="color: #282828; font-size: 18px; font-weight: 700; font-family: lato, Helvetica, sans-serif; mso-line-height-rule: exactly;">
                                               <div class="editable-text">
                                                   <span class="text_container">
-                                                      <multiline>Hello Payee here is Your Total Bill </multiline><br><br>
+                                                      <multiline>Hello ${name} here is Your Total Bill </multiline><br><br>
                                                       <multiline>Rp ${value}</multiline><br><br>
                                                       <multiline>Please sent the money to your friend's bank account</multiline><br><br>
                                                   </span>

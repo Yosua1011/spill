@@ -5,19 +5,19 @@
     <script src="/javascripts/dropdown.js"></script>
   <body>
     <div>
+      <a href="/" style="margin-left: 20px"> Back To Home </a><br><br>
       <%data_order.forEach(row => {%>
-        <table>
-        <tr>Order</tr>
+        <table style="margin-left: 20px">
+        <tr>Order: </tr>
         <tr> <%=row.order%> </tr>
         <tr>Price</tr>
         <tr> <%=row.price%> </tr>
-        <tr>Payee</tr>
         <tr><%=row.Payee%></tr>
         <tr><a href="/delete/<%=row.id%>"> Delete Order </a></tr>
         <tr><a href="/<%=row.id%>/addPayee"><a>
     </div>
         <%})%>
-      </table>
+      </table style="margin-left: 20px">
       <form class="" action="/addOrderPayee/<%=data_order[0].id%>" method="post">
         <select class="" name="PayeeId">
           <% data_payee.forEach(row => { %>

@@ -1,19 +1,30 @@
 <!DOCTYPE html>
 <html>
   <%- include partial/head %>
-  <%- include partial/login %>
   <body>
-    <body>
       <div class="col-md-10 col-md-offset-1">
         <div class="wrapper">
           <br><br>
-            <%data_payee.forEach(row => { %>
-                <td><%=row.id%></td>
+          <table border="1">
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Options</th>
+              </tr>
+              <%data_payee.forEach(row => { %>
+                <tr>
                 <td><%=row.name%></td>
                 <td><%=row.email%></td>
-                <td><a href="/editPayee/<%=row.id%>">Edit Payee's Data</a></td><br>
-            <% }) %>
+                <td>
+                  <a href="/editPayee/<%=row.id%>">Edit Payee's Data</a> |
+                  <a href="/deletePayee/<%=row.id%>"> Delete Payee </a>
+                </td>
+                </tr>
+              <% }) %>
+          </table>
         </div>
-      </div>
+      </div><br><br>
+      <a href="/", style="margin-left: 20px"> Back To Home </a>  
   </body>
 </html>
+
