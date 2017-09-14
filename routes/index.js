@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var models = require('../models');
-var calculator = require('../helpers/calculate')
+var nodemailer = require("nodemailer");
+
 
 /* GET home page. */
 // router.use((req,res,next) => {
@@ -37,39 +38,53 @@ router.get('/', (req, res)=>{
 })
 
 // router.get('/addOrder', (req,res,next) => {
-//   models.Order.findAll({
-
-//   })
+//   models.Order.findAll()
 //   .then(
 //     res.redirect('/')
 //   )
+//   .catch(err => {
+//     res.send(err)
+//   })
 // })
 
-router.post('/addOrder', (req,res) => {
-  models.Order.create({
-    order: `order`,
-    price: `price`,
-    createdAt: new Date(),
-    updatedAt: new Date()
-  })
+// router.post('/addOrder', (req,res) => {
+//   models.Order.create({
+//     order: `order`,
+//     price: `price`,
+//   })
+//   .then(order => {
+//     res.send(order)
+//   })
+//   .catch(err => {
+//     res.send(err)
+//     console.log(err);
+//   })
+// })
+
+router.get('/sendMail', (req,res) => {
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: "spillproject14@gmail.com",
+      pass: "1monitoraoc131"
+    }
+    });
+    
+    var mailOptions = {
+      from: `spillproject14@gmail.com`,
+      to: `yosua1011@outlook.com`,
+      subject: `Sending Email using node.js`,
+      text: 'That was easy'
+    }
+
+    transporter.sendMail(mailOptions, function(error) {
+      if(error) {
+        console.log(error)
+      } else {
+        console.log('Email Sent')
+      }
+    })
 })
-
-// router.get('/counter', (req,res) => {
-//   res.render('counter', {title: "Counter", session: req.session})
-// })
-
-// router.post('/counterinput', (req,res) => {
-//   if (req.session.hasLogin) {
-//     res.render('index', {title: "Split Bill", session: req.session, amount: req.body.amount})
-//   } else {
-//     res.redirect('/login')
-//   }
-// })
-
-// router.post('/order/add/:amount', function(req,res) {
-//   // let result = calculator(req.body,amount)
-//   res.send(req.body)
-// })
 
 //Login
 
