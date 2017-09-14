@@ -12,10 +12,10 @@
         <tr>Price</tr>
         <tr> <%=row.price%> </tr>
         <tr>Payee</tr>
-        <tr><%=row.PayeeId%></tr>
+        <tr><%=row.Payee%></tr>
         <tr><a href="/delete/<%=row.id%>"> Delete Order </a></tr>
-        <tr><a href="/<%=row.id%>/addPayee"
-          </div>
+        <tr><a href="/<%=row.id%>/addPayee"><a>
+    </div>
         <%})%>
       </table>
       <form class="" action="/addOrderPayee/<%=data_order[0].id%>" method="post">

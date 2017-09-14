@@ -6,7 +6,6 @@
   <body>
     <a href="/add">Add Order</a>
     <div>
-      <form class="" action="/order/add/" method="POST">
       <%data_order.forEach(row => {%>
         <table>
         <tr>Order</tr>
@@ -14,14 +13,15 @@
         <tr>Price</tr>
         <tr> <%=row.price%> </tr>
         <tr>Payee</tr>
-        <tr><%=row.PayeeId%></tr>
+        <%for(var i = 0; i < row.Payees.length; i++) {%>
+          <tr> <%=row.Payees[i].name%></tr>
+        <%}%>
         <tr><a href="/<%=row.id%>/addPayee"> Add Payee</a></tr>
         <tr><a href="/delete/<%=row.id%>"> Delete Order </a></tr>
           </div>
         <%})%>
       </table>
-        <input type="submit" value="Save">
-      </form>
+        <a href="/billRundown">Spill</a>
       <a href="/newPayee">Add a new payee</a>
   </body>
 </html>

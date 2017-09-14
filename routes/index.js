@@ -1,30 +1,18 @@
 var express = require('express');
 var router = express.Router();
 var models = require('../models');
-var calculator = require('../helpers/calculate')
+var billProccess = require('../helpers/calculate')
 
 /* GET home page. */
-// router.use((req,res,next) => {
-//   if(req.session.hasLogin) {
-//     next()
-//   } else {
-//     res.redirect('/login')
-//   }
-// })
-
 router.get('/', (req, res)=>{
   models.Order.findAll({
-    // include: [{models: models.Payee}]
+    include: [{model: models.Payee}]
   })
-  // .then(order => {
-  //   if(order === []) {
-  //     // res.redirect('/addorder')
-  //     res.send(error)
-  //   }
-  // })
     .then(order => {
-      if (req.session.hasLogin) {
+      if (req.session.hasLogin !== false) {
         res.render('index', {title: "Split Bill", session: req.session, data_order: order})
+        // res.send(order[0].Payees[0].name)
+        // res.send(order)
       } else {
         res.redirect('/login')
       }
@@ -32,6 +20,17 @@ router.get('/', (req, res)=>{
     .catch(err => {
       console.log(err);
     })
+})
+
+//Bill Rundown
+router.get('/billRundown', (req,res) => {
+  models.Order.findAll({
+    include: [{model: models.Payee}]
+  })
+  .then(order => {
+    let result = billProccess(order)
+    res.send(result)
+  })
 })
 //Add
 router.get('/add', (req,res) => {
@@ -69,7 +68,6 @@ router.get('/delete/:id', (req,res) => {
 })
 
 //AddnewPayee
-
 router.get('/newPayee', (req,res) => {
   res.render('newPayee', {title: 'Register new Payee'})
 })
@@ -111,7 +109,7 @@ router.post('/addOrderPayee/:id', (req,res) => {
     updatedAt: new Date()
   })
   .then(order => {
-    res.send('bego')
+    res.redirect('/')
   })
   .catch(err => {
     res.send(err)
