@@ -7,12 +7,14 @@
           <br><br>
           <table border="1">
               <tr>
+                <th>Payee Id</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Options</th>
               </tr>
               <%data_payee.forEach(row => { %>
                 <tr>
+                <td><%=row.id%></td>
                 <td><%=row.name%></td>
                 <td><%=row.email%></td>
                 <td>
@@ -24,7 +26,8 @@
           </table>
         </div>
       </div><br><br>
-      <a href="/", style="margin-left: 20px"> Back To Home </a>  
+      <button  style="margin-left: 20px"><a href="/"> Back To Home </a></button><br><br>
+      <button  style="margin-left: 20px"><a href="/billRundown"> Back To Spill </a></button>    
   </body>
 </html>
 

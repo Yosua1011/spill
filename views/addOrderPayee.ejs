@@ -4,8 +4,9 @@
     <link href="/stylesheets/dropdown.css" rel="stylesheet" type="text/css">
     <script src="/javascripts/dropdown.js"></script>
   <body>
-    <div>
-      <a href="/" style="margin-left: 20px"> Back To Home </a><br><br>
+    <div style="margin-left: 20px">
+      <br><br>
+      <button><a href="/"> Back To Home </a></button><br><br>
       <%data_order.forEach(row => {%>
         <table style="margin-left: 20px">
         <tr>Order: </tr>
@@ -15,7 +16,7 @@
         <tr><%=row.Payee%></tr>
         <tr><a href="/delete/<%=row.id%>"> Delete Order </a></tr>
         <tr><a href="/<%=row.id%>/addPayee"><a>
-    </div>
+    </div><br><br>
         <%})%>
       </table style="margin-left: 20px">
       <form class="" action="/addOrderPayee/<%=data_order[0].id%>" method="post">
@@ -25,7 +26,8 @@
           <% }) %>
         </select>
         <input type="text" name="Cost">
-        <button type="submit">Add Payee</button>
+        <button type="submit">Add / Substract Bill</button><br><br>
+        <p>Input positive value to add bill count of payee <br> Input Negative value to substract bill count of payee</p>
       </form>
   </body>
 </html>
