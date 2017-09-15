@@ -211,6 +211,7 @@ router.get('/billRundown', (req,res) => {
   })
 })
 
+
 //Login
 
 router.get('/login', (req, res) => {
@@ -240,6 +241,19 @@ router.post('/login', (req, res) => {
     .catch(err => {
       res.render('login', {title: 'login', error_login: true, msg:'Email or Password is wrong'})
     })
+})
+
+//Show Name
+router.get('/showPayee/:id', (req,res) => {
+  models.Payee.findAll({
+    where: {
+      id: `${req.params.id}`
+    }
+  })
+  .then(payee => {
+    // res.send(payee[0].dataValues.name)
+    res.render('viewName', {name: payee[0].dataValues.name} )
+  })
 })
 
 //Logout
