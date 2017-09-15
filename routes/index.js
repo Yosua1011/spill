@@ -214,7 +214,7 @@ router.get('/billRundown', (req,res) => {
 //Login
 
 router.get('/login', (req, res) => {
-  res.render('login', {title: 'Login', error_login: false})
+  res.render('login', {title: 'Login', error_login: false, msg:null})
 })
 
 router.post('/login', (req, res) => {
@@ -230,16 +230,15 @@ router.post('/login', (req, res) => {
             req.session.hasLogin = true
             res.redirect('/')
             } else {
-              res.render('login', {title: 'login', error_login: true})
+              res.render('login', {title: 'login', error_login: true, msg: 'Email or Password is wrong'})
             }
         })
       } else {
-        res.render('login', {title: 'login', error_login: true})
+        res.render('login', {title: 'login', error_login: true, msg:'Email or Password is wrong'})
       }
     })
     .catch(err => {
-      res.render('login', {title: 'login', error_login: true})
-      // console.log(err)
+      res.render('login', {title: 'login', error_login: true, msg:'Email or Password is wrong'})
     })
 })
 
